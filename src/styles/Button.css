@@ -1,0 +1,21 @@
+/* src/components/Button.css */
+
+.input-submit {
+    width: 100%;
+    height: 45px;
+    background: var(--highlight-color);
+    color: var(--secondary-color);
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .input-submit:hover {
+    background: var(--primary-color);
+    color: var(--secondary-color);
+  }
+
+  
