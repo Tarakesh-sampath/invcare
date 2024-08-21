@@ -18,7 +18,7 @@ const Register = () => {
     event.preventDefault();
     alert(`Username: ${user} Email: ${email} Server: ${server} Password: ${pass} Confirm Password: ${c_pass}`);
     try {
-      const response = await axios.post('http://127.0.0.1:8000/register', {
+      const response = await axios.post('https://invcare-1.onrender.com/register', {
         username:user,
         password:pass,
         server:server,
