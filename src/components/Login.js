@@ -2,17 +2,33 @@
 import React ,{ useState }from 'react';
 import Wrapper from '../components/Wrapper';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../styles/Login.css'; // Adjust the path as necessary
+import axios from 'axios';
 
 const Login = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState('');
   const [pass, setPass] = useState('');
 
   
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    alert(`Username: ${user} Password: ${pass}`);
-  }
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/login', {
+        username:user,
+        password:pass,
+      });
+      if (response.data.message === 'true') {
+        alert('Login successful!');
+        navigate('/'); // Redirect to the home page
+      } else {
+          alert(response.data.message); // Display error message
+      }
+    } catch (error) {
+        console.error(error);
+    }
+  };
   return(
     <Wrapper>
       <div className="login_box">

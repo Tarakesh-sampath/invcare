@@ -2,17 +2,38 @@
 import React ,{ useState } from 'react';
 import Wrapper from '../components/Wrapper';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import '../styles/Register.css'; // Adjust the path as necessary
 
 const Register = () => {
-  const [username , setUsername] = useState('');
+  const navigate = useNavigate();
+  const [user , setUsername] = useState('');
   const [email , setEmail] = useState('');
-  const [password , setPassword] = useState('');
-  const [confirm_password , setConfirmPassword] = useState('');
+  const [server , setServer] = useState('');
+  const [pass , setPassword] = useState('');
+  const [c_pass , setConfirmPassword] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    alert(`Username: ${username} Email: ${email} Password: ${password} Confirm Password: ${confirm_password}`);
+    alert(`Username: ${user} Email: ${email} Server: ${server} Password: ${pass} Confirm Password: ${c_pass}`);
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/register', {
+        username:user,
+        password:pass,
+        server:server,
+        email:email,
+        c_password:c_pass,
+      });
+      if (response.data.message === 'true') {
+        alert('Register successful');
+        navigate('/'); // Redirect to the home page
+      } else {
+          alert(response.data.message); // Display error message
+      }
+    } catch (error) {
+        console.error(error);
+    }
   }
   return(
   <Wrapper>
@@ -28,6 +49,9 @@ const Register = () => {
         </div>
         <div className="input_box">
           <input type="email" id="email" placeholder="Email" className='input-field' onChange={(e)=>setEmail(e.target.value)} required/>
+        </div>
+        <div className="input_box">
+          <input type="test" id="server" placeholder="Sql Server link" className='input-field' onChange={(e)=>setServer(e.target.value)} required/>
         </div>
         <div className="input_box">
           <input type="password" id="password" placeholder="Password" className='input-field' onChange={(e)=>setPassword(e.target.value)} required/>
