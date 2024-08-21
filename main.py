@@ -21,6 +21,11 @@ app.add_middleware(
 db = client["Invcare"]
 user_data_collection = db["user_data"]
 
+
+@app.post("/")
+async def root():
+    return {"message": "Hello World"}
+
 @app.post("/register")
 async def create_user(req_data: dict):
     if( req_data["password"] == req_data["c_password"]):
