@@ -22,7 +22,7 @@ db = client["Invcare"]
 user_data_collection = db["user_data"]
 
 
-@app.post("/")
+@app.get("/")
 async def root():
     return {"message": "Hello World"}
 
