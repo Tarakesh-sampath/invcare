@@ -8,7 +8,6 @@ import json
 app = FastAPI()
 
 client = AsyncIOMotorClient("mongodb+srv://vercel-admin-user:ZzyyqL48URl8o8cN@invdb.y7d9vxz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-print("client connected")
 
 app.add_middleware(
     CORSMiddleware,
