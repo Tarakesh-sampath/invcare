@@ -56,4 +56,4 @@ async def login(req_data: dict):
     if user["password"] != password:
         raise HTTPException(status_code=401, detail="Incorrect password")
     print(username,password)
-    return {"message": "true", "username": user["username"],"userid" : user["_id"]}
+    return {"message": "true", "username": user["username"],"userid" : str(user["_id"])}
