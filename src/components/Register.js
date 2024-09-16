@@ -27,7 +27,7 @@ const Register = () => {
       });
       if (response.data.message === 'true') {
         alert('Register successful');
-        navigate('/'); // Redirect to the home page
+        navigate('/login'); // Redirect to the home page
       } else {
           alert(response.data.message); // Display error message
       }

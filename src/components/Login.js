@@ -21,7 +21,7 @@ const Login = () => {
       });
       if (response.data.message === 'true') {
         alert('Login successful!');
-        navigate('/'); // Redirect to the home page
+        navigate('/Dash'); // Redirect to the home page
       } else {
           alert(response.data.message); // Display error message
       }
