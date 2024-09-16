@@ -7,7 +7,7 @@ import json
 #python -m venv .venv; .\.venv\Scripts\Activate; pip install "fastapi[standard]" "pymongo[srv]" motor
 app = FastAPI()
 
-client = AsyncIOMotorClient("mongodb+srv://vercel-admin-user:ZzyyqL48URl8o8cN@invdb.y7d9vxz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+client = AsyncIOMotorClient("mongodb+srv://vercel-admin-user:kiJotSquXB9WZNyv@invdb.y7d9vxz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 print("client connected")
 
 app.add_middleware(
