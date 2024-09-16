@@ -1,4 +1,3 @@
-// src/pages/Login.js
 import React, { useState } from 'react';
 import Wrapper from '../components/Wrapper';
 import { Link, useNavigate } from 'react-router-dom';
