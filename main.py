@@ -37,8 +37,8 @@ async def create_user(req_data: dict):
             "email": req_data["email"],
             "server": req_data["server"],
         }
-        inserted_data = await user_data_collection.insert_one(data)
-        return {"message": "true", "username": req_data["username"]}
+        in_data = await user_data_collection.insert_one(data)
+        return {"message": "true", "username": req_data["username"],"userid" : str(in_data.inserted_id)}
     return {"message": "false"}
 
 @app.post("/login")
