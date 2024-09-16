@@ -18,7 +18,7 @@ const Login = () => {
       });
 
       if (response.data.message === 'true') {
-        const userId = response.data.userId;
+        const userId = response.data.userid;
         alert('Login successful!');
         navigate('/Dash', { state: { userId } }); 
       } else {
