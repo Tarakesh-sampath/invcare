@@ -1,13 +1,24 @@
 from fastapi import FastAPI, HTTPException
 from datetime import datetime
-from motor.motor_asyncio import AsyncIOMotorClient
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
 from bson import ObjectId
 from fastapi.middleware.cors import CORSMiddleware
 import json
-#python -m venv .venv; .\.venv\Scripts\Activate; pip install "fastapi[standard]" "pymongo[srv]" motor
 app = FastAPI()
 
-client = AsyncIOMotorClient("mongodb+srv://Backend:1234@invdb.y7d9vxz.mongodb.net/")
+uri = "mongodb+srv://backend:1234@invdb.y7d9vxz.mongodb.net/?retryWrites=true&w=majority&appName=InvDB"
+# Create a new client and connect to the server
+client = MongoClient(uri, server_api=ServerApi('1'))
+# Send a ping to confirm a successful connection
+try:
+    client.admin.command('ping')
+    print("Pinged your deployment. You successfully connected to MongoDB!")
+except Exception as e:
+    print(e)
+
+#python -m venv .venv; .\.venv\Scripts\Activate; pip install "fastapi[standard]" "pymongo[srv]" motor
+
 
 app.add_middleware(
     CORSMiddleware,
