@@ -1,0 +1,9 @@
+.bill-summary-container {
+    margin-top: 20px;
+  }
+  
+  .bill-summary-container ul {
+    list-style: none;
+    padding: 0;
+  }
+  

@@ -1,0 +1,22 @@
+/* src/styles/UpdateItem.css */
+
+main {
+    padding: 2em 0;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border-radius: var(--border-radius);
+    margin: 0 1em;
+    min-height: 85.5vh;
+    text-align: center;
+  }
+  
+  .form-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  textarea {
+    height: 100px;
+    resize: vertical;
+  }
+  
