@@ -58,13 +58,10 @@ async def login(req_data: dict):
     return {"username": user["username"], "email": str(user["email"]),"message" : "true" }
 
 @app.get("/getdb")
-async def getdb(objid: str, item: str):
-    try:
-        # Convert string to ObjectId
-        obj_id = ObjectId(objid)
-        
+async def getdb(email: str, item: str):
+    try:    
         # Connect to MongoDB and fetch user's server link
-        user_item = await user_data_collection.find_one({"_id": obj_id})
+        user_item = await user_data_collection.find_one({"email": str(email)})
         if not user_item:
             raise HTTPException(status_code=404, detail="User not found")
         print(user_item["server"])
