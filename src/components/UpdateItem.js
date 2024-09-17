@@ -3,9 +3,10 @@ import Header2 from '../components/Header2';
 import { useLocation } from 'react-router-dom';
 import '../styles/UpdateItem.css'; // Adjust the path as necessary
 
-const UpdateItem = ({uname}) => {
+const UpdateItem = ({uname,email}) => {
   const location = useLocation();
   uname = location.state?.uname || {}
+  email = location.state?.email || {}
   return (
     <>
       <Header2 username={uname} />

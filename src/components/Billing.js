@@ -4,7 +4,7 @@ import Header2 from '../components/Header2';
 import items from './items'; // Correct import path
 import '../styles/Billing.css'; // Adjust the path as necessary
 
-const Billing = ({uname}) => {
+const Billing = ({uname,email}) => {
   const [itemId, setItemId] = useState('');
   const [quantity, setQuantity] = useState('');
   const [cart, setCart] = useState([]);

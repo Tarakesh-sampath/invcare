@@ -4,12 +4,13 @@ import { useNavigate, useLocation} from 'react-router-dom';
 import Header2 from './Header2'; // Adjust the path as necessary
 import '../styles/Dashboard.css'; // Adjust the path as necessary
 
-const Dashboard = ({uname}) => {
+const Dashboard = ({uname,email}) => {
   const navigate = useNavigate();
   const location = useLocation();
   uname = location.state?.uname || {}
-  const handleNavigation = (path,uname) => {
-    navigate(`/${path}`,{ state: {uname} });
+  email = location.state?.email || {}
+  const handleNavigation = (path,uname,email) => {
+    navigate(`/${path}`,{ state: {uname,email} });
   };
 
   return (
@@ -21,20 +22,20 @@ const Dashboard = ({uname}) => {
           <div className="dashboard-actions">
             <div className="dashboard-action">
               <h3>Add Item</h3>
-              <button className="input-submit" onClick={() => handleNavigation('add-item',uname)}>Add New Item</button>
+              <button className="input-submit" onClick={() => handleNavigation('add-item',uname,email)}>Add New Item</button>
             </div>
             <div className="dashboard-action">
               <h3>Search Inventory</h3>
               <input type="text" className="input-field" placeholder="Search..." />
-              <button className="input-submit" onClick={() => handleNavigation('search-item',uname)}>Search</button>
+              <button className="input-submit" onClick={() => handleNavigation('search-item',uname,email)}>Search</button>
             </div>
             <div className="dashboard-action">
               <h3>Update Item</h3>
-              <button className="input-submit" onClick={() => handleNavigation('update-item',uname)}>Update Item</button>
+              <button className="input-submit" onClick={() => handleNavigation('update-item',uname,email)}>Update Item</button>
             </div>
             <div className="dashboard-action">
               <h3>Billing</h3>
-              <button className="input-submit" onClick={() => handleNavigation('billing',uname)}>Generate Bill</button>
+              <button className="input-submit" onClick={() => handleNavigation('billing',uname,email)}>Generate Bill</button>
             </div>
           </div>
         </div>

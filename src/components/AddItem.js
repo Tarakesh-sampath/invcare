@@ -2,7 +2,7 @@ import React from 'react';
 import Header2 from '../components/Header2';
 import '../styles/AddItem.css'; // Adjust the path as necessary
 
-const AddItem = ({uname}) => (
+const AddItem = ({uname,email}) => (
   <>
     <Header2 username={uname} />
     <main>
