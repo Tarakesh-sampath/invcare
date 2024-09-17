@@ -55,5 +55,4 @@ async def login(req_data: dict):
         raise HTTPException(status_code=401, detail="Incorrect password")
 
     # Create JWT token
-    access_token = create_access_token(data={"sub": username})
-    return {"access_token": access_token, "token_type": "bearer", "username": user["username"], "userid": str(user["_id"]),"message" : "true" }
+    return {"username": user["username"], "userid": str(user["_id"]),"message" : "true" }
