@@ -3,7 +3,8 @@ from datetime import datetime, timedelta
 from motor.motor_asyncio import AsyncIOMotorClient
 from bson import ObjectId
 from fastapi.middleware.cors import CORSMiddleware
-
+from typing import List, Dict
+from bson import ObjectId
 app = FastAPI()
 
 client = AsyncIOMotorClient("mongodb+srv://Backend:1234@invdb.y7d9vxz.mongodb.net/")
@@ -54,5 +55,28 @@ async def login(req_data: dict):
     if user["password"] != password:
         raise HTTPException(status_code=401, detail="Incorrect password")
 
-    # Create JWT token
     return {"username": user["username"], "userid": str(user["_id"]),"message" : "true" }
+
+@app.get("/getdb")
+async def getdb(objid:str,item:str):
+    try:
+        obj_id = ObjectId(objid)
+        item = await user_data_collection.find_one({"_id": obj_id})
+        # Connect to the MongoDB server
+        client = AsyncIOMotorClient(item["server"])
+        # Access the database and collection
+        shop_db = client["shop_db"]
+        inventory = shop_db["inventory"]
+        
+        # Fetch all items from the inventory collection
+        items_cursor = inventory.find({"name": {"$regex": item, "$options": "i"}})
+        items = await items_cursor.to_list(length=100)  # Adjust length as needed
+        
+        # Convert MongoDB ObjectId to string if needed
+        for item in items:
+            item['_id'] = str(item['_id'])
+        
+        return {"items": items}
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
