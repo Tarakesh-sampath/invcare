@@ -58,25 +58,30 @@ async def login(req_data: dict):
     return {"username": user["username"], "userid": str(user["_id"]),"message" : "true" }
 
 @app.get("/getdb")
-async def getdb(objid:str,item:str):
+async def getdb(objid: str, item: str):
     try:
+        # Convert string to ObjectId
         obj_id = ObjectId(objid)
-        item = await user_data_collection.find_one({"_id": obj_id})
-        # Connect to the MongoDB server
-        client = AsyncIOMotorClient(item["server"])
-        # Access the database and collection
+        
+        # Connect to MongoDB and fetch user's server link
+        user_item = await user_data_collection.find_one({"_id": obj_id})
+        if not user_item:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        client = AsyncIOMotorClient(user_item["server"])
         shop_db = client["shop_db"]
         inventory = shop_db["inventory"]
-        
-        # Fetch all items from the inventory collection
+
+        # Perform the search operation
         items_cursor = inventory.find({"name": {"$regex": item, "$options": "i"}})
-        items = await items_cursor.to_list(length=100)  # Adjust length as needed
-        
+        items = await items_cursor.to_list(length=100)
+
         # Convert MongoDB ObjectId to string if needed
-        for item in items:
-            item['_id'] = str(item['_id'])
+        for itm in items:
+            itm['_id'] = str(itm['_id'])
         
         return {"items": items}
-    
+
     except Exception as e:
+        print(f"Error: {str(e)}")  # Print error to the server log
         raise HTTPException(status_code=500, detail=str(e))
