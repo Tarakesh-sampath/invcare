@@ -55,7 +55,7 @@ async def login(req_data: dict):
     if user["password"] != password:
         raise HTTPException(status_code=401, detail="Incorrect password")
 
-    return {"username": user["username"], "userid": str(user["_id"]),"message" : "true" }
+    return {"username": user["username"], "email": str(user["email"]),"message" : "true" }
 
 @app.get("/getdb")
 async def getdb(objid: str, item: str):
