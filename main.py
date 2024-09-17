@@ -1,10 +1,15 @@
-from fastapi import FastAPI, HTTPException
-from datetime import datetime
+from fastapi import FastAPI, HTTPException, Depends
+from datetime import datetime, timedelta
 from motor.motor_asyncio import AsyncIOMotorClient
 from bson import ObjectId
 from fastapi.middleware.cors import CORSMiddleware
-import json
-#python -m venv .venv; .\.venv\Scripts\Activate; pip install "fastapi[standard]" "pymongo[srv]" motor
+import jwt
+
+# Constants for JWT
+SECRET_KEY = "k1f7gQ3t8VbW1zL9T6mYzP2oFqWv5dR0XhN8eL3A4kJz7"  # Replace with your actual secret key
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
 app = FastAPI()
 
 client = AsyncIOMotorClient("mongodb+srv://Backend:1234@invdb.y7d9vxz.mongodb.net/")
@@ -21,6 +26,16 @@ app.add_middleware(
 db = client["Invcare"]
 user_data_collection = db["user_data"]
 
+# Helper function to create JWT token
+def create_access_token(data: dict, expires_delta: timedelta = None):
+    to_encode = data.copy()
+    if expires_delta:
+        expire = datetime.utcnow() + expires_delta
+    else:
+        expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    to_encode.update({"exp": expire})
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return encoded_jwt
 
 @app.get("/")
 async def root():
@@ -28,7 +43,7 @@ async def root():
 
 @app.post("/register")
 async def create_user(req_data: dict):
-    if( req_data["password"] == req_data["c_password"]):
+    if req_data["password"] == req_data["c_password"]:
         data = {
             "username": req_data["username"],
             "createdAt": str(datetime.now()),
@@ -38,7 +53,7 @@ async def create_user(req_data: dict):
             "server": req_data["server"],
         }
         in_data = await user_data_collection.insert_one(data)
-        return {"message": "true", "username": req_data["username"],"userid" : str(in_data.inserted_id)}
+        return {"message": "true", "username": req_data["username"], "userid": str(in_data.inserted_id)}
     return {"message": "false"}
 
 @app.post("/login")
@@ -55,5 +70,7 @@ async def login(req_data: dict):
     # Check if the password matches
     if user["password"] != password:
         raise HTTPException(status_code=401, detail="Incorrect password")
-    print(username,password)
-    return {"message": "true", "username": user["username"],"userid" : str(user["_id"])}
+
+    # Create JWT token
+    access_token = create_access_token(data={"sub": username})
+    return {"access_token": access_token, "token_type": "bearer", "username": user["username"], "userid": str(user["_id"])}
