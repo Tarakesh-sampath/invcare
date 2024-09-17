@@ -8,8 +8,8 @@ const Dashboard = ({uname}) => {
   const navigate = useNavigate();
   const location = useLocation();
   uname = location.state?.uname || {}
-  const handleNavigation = (path) => {
-    navigate(`/${path}`);
+  const handleNavigation = (path,uname) => {
+    navigate(`/${path}`,{ state: {uname} });
   };
 
   return (
@@ -21,20 +21,20 @@ const Dashboard = ({uname}) => {
           <div className="dashboard-actions">
             <div className="dashboard-action">
               <h3>Add Item</h3>
-              <button className="input-submit" onClick={() => handleNavigation('add-item')}>Add New Item</button>
+              <button className="input-submit" onClick={() => handleNavigation('add-item',uname)}>Add New Item</button>
             </div>
             <div className="dashboard-action">
               <h3>Search Inventory</h3>
               <input type="text" className="input-field" placeholder="Search..." />
-              <button className="input-submit" onClick={() => handleNavigation('search-item')}>Search</button>
+              <button className="input-submit" onClick={() => handleNavigation('search-item',uname)}>Search</button>
             </div>
             <div className="dashboard-action">
               <h3>Update Item</h3>
-              <button className="input-submit" onClick={() => handleNavigation('update-item')}>Update Item</button>
+              <button className="input-submit" onClick={() => handleNavigation('update-item',uname)}>Update Item</button>
             </div>
             <div className="dashboard-action">
               <h3>Billing</h3>
-              <button className="input-submit" onClick={() => handleNavigation('billing')}>Generate Bill</button>
+              <button className="input-submit" onClick={() => handleNavigation('billing',uname)}>Generate Bill</button>
             </div>
           </div>
         </div>

@@ -5,7 +5,7 @@ import '../styles/UpdateItem.css'; // Adjust the path as necessary
 
 const UpdateItem = ({uname}) => {
   const location = useLocation();
-  uname = location.state?.uname || {}
+  uname = location.state.uname || {}
   return (
     <>
       <Header2 username={uname} />
