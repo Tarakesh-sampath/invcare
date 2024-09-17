@@ -3,12 +3,6 @@ from datetime import datetime, timedelta
 from motor.motor_asyncio import AsyncIOMotorClient
 from bson import ObjectId
 from fastapi.middleware.cors import CORSMiddleware
-import jwt
-
-# Constants for JWT
-SECRET_KEY = "k1f7gQ3t8VbW1zL9T6mYzP2oFqWv5dR0XhN8eL3A4kJz7"  # Replace with your actual secret key
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 app = FastAPI()
 
@@ -25,17 +19,6 @@ app.add_middleware(
 
 db = client["Invcare"]
 user_data_collection = db["user_data"]
-
-# Helper function to create JWT token
-def create_access_token(data: dict, expires_delta: timedelta = None):
-    to_encode = data.copy()
-    if expires_delta:
-        expire = datetime.utcnow() + expires_delta
-    else:
-        expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt
 
 @app.get("/")
 async def root():
