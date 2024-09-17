@@ -4,3 +4,4 @@ motor
 apscheduler
 httpx
 logging
+pyjwt
