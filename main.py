@@ -67,7 +67,7 @@ async def getdb(objid: str, item: str):
         user_item = await user_data_collection.find_one({"_id": obj_id})
         if not user_item:
             raise HTTPException(status_code=404, detail="User not found")
-
+        print(user_item["server"])
         client = AsyncIOMotorClient(user_item["server"])
         shop_db = client["shop_db"]
         inventory = shop_db["inventory"]
