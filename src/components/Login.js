@@ -18,9 +18,9 @@ const Login = () => {
       });
 
       if (response.data.message === 'true') {
-        const userId = response.data.userid;
+        const uname = response.data.username;
         alert('Login successful!');
-        navigate('/dashboard', { state: { userId } }); 
+        navigate('/dashboard', { state: { uname } }); 
       } else {
         alert(response.data.message);
       }

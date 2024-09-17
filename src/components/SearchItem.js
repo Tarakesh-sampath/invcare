@@ -53,16 +53,26 @@ const SearchItem = () => {
             )}
             <div className="item-list">
               <h3>Available Items</h3>
-              <ul>
-                {itemList.map(item => (
-                  <li key={item.id}>
-                    <p><strong>ID:</strong> {item.id}</p>
-                    <p><strong>Name:</strong> {item.name}</p>
-                    <p><strong>Price:</strong> ${item.price}</p>
-                    <p><strong>Available Count:</strong> {item.availableCount}</p>
-                  </li>
-                ))}
-              </ul>
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Available Count</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {itemList.map(item => (
+                    <tr key={item.id}>
+                      <td>{item.id}</td>
+                      <td>{item.name}</td>
+                      <td>${item.price}</td>
+                      <td>{item.availableCount}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

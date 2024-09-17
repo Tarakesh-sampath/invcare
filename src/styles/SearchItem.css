@@ -34,3 +34,29 @@
   margin-top: 20px;
   color: var(--highlight-color);
 }
+
+.item-list {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.item-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.item-list th, .item-list td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid var(--primary-color);
+}
+
+.item-list th {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.item-list tr:nth-child(even) {
+  background-color: var(--secondary-color);
+}
