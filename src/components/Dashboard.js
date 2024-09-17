@@ -1,19 +1,20 @@
 // src/pages/Dashboard.js
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation} from 'react-router-dom';
 import Header2 from './Header2'; // Adjust the path as necessary
 import '../styles/Dashboard.css'; // Adjust the path as necessary
 
-const Dashboard = ({ username }) => {
+const Dashboard = ({uname}) => {
   const navigate = useNavigate();
-
+  const location = useLocation();
+  uname = location.state?.uname || {}
   const handleNavigation = (path) => {
-    navigate(`/dashboard/${path}`);
+    navigate(`/${path}`);
   };
 
   return (
     <>
-      <Header2 username={username} />
+      <Header2 uname={uname} />
       <main>
         <div className="container">
           <h2>Inventory Dashboard</h2>

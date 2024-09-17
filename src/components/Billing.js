@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import Header from '../components/Header';
+import Header2 from '../components/Header2';
 import items from './items'; // Correct import path
 import '../styles/Billing.css'; // Adjust the path as necessary
 
-const Billing = () => {
+const Billing = ({uname}) => {
   const [itemId, setItemId] = useState('');
   const [quantity, setQuantity] = useState('');
   const [cart, setCart] = useState([]);
@@ -52,7 +52,7 @@ const Billing = () => {
 
   return (
     <>
-      <Header />
+      <Header2 username={uname} />
       <main>
         <div className="container">
           <h2>Generate Bill</h2>

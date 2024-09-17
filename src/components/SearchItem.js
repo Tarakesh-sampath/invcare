@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import items from './items'; // Adjust the path as necessary
-import Header from '../components/Header';
+import Header2 from '../components/Header2';
 import '../styles/SearchItem.css'; // Adjust the path as necessary
 
-const SearchItem = () => {
+const SearchItem = ({uname}) => {
   const location = useLocation();
+  uname = location.state?.uname || {}
   const [searchId, setSearchId] = useState(location.state?.searchId || '');
   const [searchResult, setSearchResult] = useState(null);
   const [itemList, setItemList] = useState([]);
@@ -25,7 +26,7 @@ const SearchItem = () => {
 
   return (
     <>
-      <Header />
+      <Header2 username={uname} />
       <main>
         <div className="container">
           <h2>Search Inventory</h2>

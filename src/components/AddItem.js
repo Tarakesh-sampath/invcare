@@ -1,10 +1,10 @@
 import React from 'react';
-import Header from '../components/Header';
+import Header2 from '../components/Header2';
 import '../styles/AddItem.css'; // Adjust the path as necessary
 
-const AddItem = () => (
+const AddItem = ({uname}) => (
   <>
-    <Header />
+    <Header2 username={uname} />
     <main>
       <div className="container">
         <h2>Add New Item</h2>

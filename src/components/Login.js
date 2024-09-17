@@ -19,8 +19,9 @@ const Login = () => {
 
       if (response.data.message === 'true') {
         const uname = response.data.username;
+        console.log(uname);
         alert('Login successful!');
-        navigate('/dashboard', { state: { uname } }); 
+        navigate('/dashboard', { state: {uname} }); 
       } else {
         alert(response.data.message);
       }

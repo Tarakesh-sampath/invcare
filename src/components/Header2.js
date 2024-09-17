@@ -1,12 +1,13 @@
 // src/components/Header_Auth.js
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate,useLocation } from 'react-router-dom';
 import '../styles/Header.css'; // Adjust the path as necessary
 
-const Header2 = ({ username }) => {
+const Header2 = ({uname}) => {
   const navigate = useNavigate();
-
-  if (!username) {
+  const location = useLocation();
+  uname = location.state?.uname || {}
+  if (!uname) {
     navigate('/login');
   }
 
@@ -17,7 +18,7 @@ const Header2 = ({ username }) => {
         <nav>
           <ul>
             <li><Link to="/">Home</Link></li>
-            <li><span>Hello, {username}</span></li>
+            <li><span>Hello,{uname}</span></li>
           </ul>
         </nav>
       </div>
