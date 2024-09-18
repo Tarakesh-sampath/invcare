@@ -83,10 +83,10 @@ async def add_item(req_data: dict ):
         inventory_collection = await get_user_db_link(email)
         
         new_item = {
-            "name": req_data["item_name"],
-            "quantity": req_data["quantity"],
-            "category": req_data["category"],
-            "description": req_data["description"]
+            "name": req_data.get("item_name"),
+            "quantity": req_data.get("quantity"),
+            "category": req_data.get("category"),
+            "description": req_data.get("description")
         }
         result = await inventory_collection.insert_one(new_item)
         return {"message": "Item added successfully", "item_id": str(result.inserted_id)}
