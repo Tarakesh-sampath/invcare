@@ -80,7 +80,7 @@ async def login(req_data: dict):
 @app.post("/additem")
 async def add_item(req_data: dict ):
     try:
-        inventory_collection = await get_user_db_link(email)
+        inventory_collection = await get_user_db_link(str(req_data.get("email")))
         
         new_item = {
             "name": req_data.get("item_name"),
