@@ -37,9 +37,7 @@ async def get_user_db_link(email: str):
     if not mongodb_url:
         raise HTTPException(status_code=500, detail="MongoDB URL not found for the user")
     
-    # Connect to the user's MongoDB instance
-    client = AsyncIOMotorClient(mongodb_url)
-    return client["shop_db"]  # Assuming database name is "shop_db"
+    return str(mongodb_url) # Assuming database name is "shop_db"
 
 @app.post("/register")
 async def create_user(req_data: dict):
@@ -79,11 +77,11 @@ async def login(req_data: dict):
 # API endpoint to add a new item
 @app.post("/additem")
 async def add_item(req_data: dict ):
-    return {"email": req_data.get("email")}
-    """
+    #return {"email": req_data.get("email")}
     try:
         inventory_collection = await get_user_db_link(str(req_data.get("email")))
-        
+        return {"link": inventory_collection}
+        """
         new_item = {
             "name": req_data.get("item_name"),
             "quantity": req_data.get("quantity"),
@@ -92,10 +90,10 @@ async def add_item(req_data: dict ):
         }
         result = await inventory_collection.insert_one(new_item)
         return {"message": "Item added successfully", "item_id": str(result.inserted_id)}
-    
+        """
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-    """
+    
 @app.get("/getdb")
 async def getdb(email: str, item: str):
     try:    
