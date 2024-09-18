@@ -6,13 +6,13 @@ import Header2 from '../components/Header2';
 const AddItem = ({ uname, email }) => {
   const [itemName, setItemName] = useState('');
   const [quantity, setQuantity] = useState('');
-  const [category, setCategory] = useState('');
+  const [price, setCategory] = useState('');
   const [description, setDescription] = useState('');
   const location = useLocation();
   uname = location.state?.uname || {}
   email = location.state?.email || {}
   const handleAddItem = async () => {
-    if (!itemName || !quantity || !category || !description) {
+    if (!itemName || !quantity || !price || !description) {
       alert('All fields are required');
       return;
     }
@@ -21,7 +21,7 @@ const AddItem = ({ uname, email }) => {
         email: email,
         item_name: itemName,
         quantity: quantity,
-        category   : category,
+        price   : price,
         description:description,
       });
       console.log(response.data.message);
@@ -41,7 +41,7 @@ const AddItem = ({ uname, email }) => {
           <div className="form-container">
             <input type="text" className="input-field" placeholder="Item Name" value={itemName} onChange={(e) => setItemName(e.target.value)} />
             <input type="number" className="input-field" placeholder="Quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
-            <input type="text" className="input-field" placeholder="Category" value={category} onChange={(e) => setCategory(e.target.value)} />
+            <input type="text" className="input-field" placeholder="Price" value={price} onChange={(e) => setCategory(e.target.value)} />
             <textarea className="input-field" placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
             <button className="input-submit" onClick={handleAddItem}>Add Item</button>
           </div>
