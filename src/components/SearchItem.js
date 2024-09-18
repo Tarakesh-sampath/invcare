@@ -14,7 +14,7 @@ const SearchItem = ({ uname, email }) => {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/getdb',{
+      const response = await axios.post('https://invcare-1.onrender.com/getdb',{
         email: email,
         item_name: search
       });

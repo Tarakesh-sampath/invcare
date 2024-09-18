@@ -17,7 +17,7 @@ const AddItem = ({ uname, email }) => {
       return;
     }
     try {
-      const response = await axios.post('http://127.0.0.1:8000/additem', {
+      const response = await axios.post('https://invcare-1.onrender.com/additem', {
         email: email,
         item_name: itemName,
         quantity: quantity,
