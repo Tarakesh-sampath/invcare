@@ -5,7 +5,6 @@ from bson import ObjectId
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List, Dict
 from bson import ObjectId
-from pydantic import BaseModel
 app = FastAPI()
 
 client = AsyncIOMotorClient("mongodb+srv://Backend:1234@invdb.y7d9vxz.mongodb.net/")
@@ -76,12 +75,6 @@ async def login(req_data: dict):
 
 
 #add items
-
-class ItemModel(BaseModel):
-    name: str
-    quantity: int
-    category: str
-    description: str
 
 # API endpoint to add a new item
 @app.post("/additem")

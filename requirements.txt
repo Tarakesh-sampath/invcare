@@ -2,4 +2,3 @@ fastapi[standard]
 pymongo[srv]
 motor
 typing
-pydantic
