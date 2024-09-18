@@ -78,17 +78,16 @@ async def login(req_data: dict):
 
 # API endpoint to add a new item
 @app.post("/additem")
-async def add_item(email: str, item_name: str, quantity: int, category: str, description: str):
+async def add_item(req_data: dict ):
     try:
         inventory_collection = await get_user_db_link(email)
         
         new_item = {
-            "name": item_name,
-            "quantity": quantity,
-            "category": category,
-            "description": description,
+            "name": req_data["item_name"],
+            "quantity": req_data["quantity"],
+            "category": req_data["category"],
+            "description": req_data["description"]
         }
-
         result = await inventory_collection.insert_one(new_item)
         return {"message": "Item added successfully", "item_id": str(result.inserted_id)}
     
