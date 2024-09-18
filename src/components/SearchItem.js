@@ -8,19 +8,16 @@ const SearchItem = ({ uname, email }) => {
   const location = useLocation();
   uname = location.state?.uname || '';
   email = location.state?.email || '';
-  const [searchText, setSearchText] = useState(''); // Changed from searchId to searchText for name-based search
+  const [search, setSearchText] = useState(''); // Changed from searchId to searchText for name-based search
   const [searchResults, setSearchResults] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get('https://invcare-1.onrender.com/getdb', {
-        params: {
-          email: email, // Pass user ID to fetch their specific MongoDB instance
-          item: searchText, // Pass search text for the item name
-        },
+      const response = await axios.post('http://127.0.0.1:8000/getdb',{
+        email: email,
+        item_name: search
       });
-
       if (response.data.items.length > 0) {
         setSearchResults(response.data.items);
         setErrorMessage('');
@@ -33,7 +30,6 @@ const SearchItem = ({ uname, email }) => {
       setErrorMessage('Error fetching data');
     }
   };
-
   return (
     <>
       <Header2 username={uname} />
@@ -45,7 +41,7 @@ const SearchItem = ({ uname, email }) => {
               type="text"
               className="input-field"
               placeholder="Enter Item Name"
-              value={searchText}
+              value={search}
               onChange={(e) => setSearchText(e.target.value)}
             />
             <button className="input-submit" onClick={handleSearch}>

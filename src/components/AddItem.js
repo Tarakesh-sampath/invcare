@@ -11,21 +11,20 @@ const AddItem = ({ uname, email }) => {
   const location = useLocation();
   uname = location.state?.uname || {}
   email = location.state?.email || {}
-  console.log(uname,email)
   const handleAddItem = async () => {
     if (!itemName || !quantity || !category || !description) {
       alert('All fields are required');
       return;
     }
     try {
-      const response = await axios.post('https://invcare-1.onrender.com/additem', {
+      const response = await axios.post('http://127.0.0.1:8000/additem', {
         email: email,
         item_name: itemName,
-        quantity: parseInt(quantity, 10),
+        quantity: quantity,
         category   : category,
         description:description,
       });
-      console.log(response.data.dblink);
+      console.log(response.data.message);
       alert('Item added successfully');
     } catch (error) {
       console.error(error);
