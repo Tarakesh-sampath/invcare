@@ -8,7 +8,6 @@ from bson import ObjectId
 app = FastAPI()
 #http://127.0.0.1:8000 
 client = AsyncIOMotorClient("mongodb+srv://Backend:1234@invdb.y7d9vxz.mongodb.net/")
-print("client connected")
 
 app.add_middleware(
     CORSMiddleware,
@@ -92,7 +91,6 @@ async def getdb(req_data: dict):
         print(str(req_data.get("email")))
         shop = await get_user_db_link(str(req_data.get("email")))
         inventory = shop["inventory"]
-        print("server connected")
         # Perform the search operation
         items_cursor = inventory.find({"name": {"$regex": str(req_data.get("item_name")), "$options": "i"}})
         items = await items_cursor.to_list(length=100)
@@ -100,7 +98,6 @@ async def getdb(req_data: dict):
         # Convert MongoDB ObjectId to string if needed
         for itm in items:
             itm['_id'] = str(itm['_id'])
-        print(items)
         return {"items": items}
 
     except Exception as e:
