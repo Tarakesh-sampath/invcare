@@ -79,6 +79,8 @@ async def login(req_data: dict):
 # API endpoint to add a new item
 @app.post("/additem")
 async def add_item(req_data: dict ):
+    return {"email": req_data.get("email")}
+    """
     try:
         inventory_collection = await get_user_db_link(str(req_data.get("email")))
         
@@ -93,7 +95,7 @@ async def add_item(req_data: dict ):
     
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
+    """
 @app.get("/getdb")
 async def getdb(email: str, item: str):
     try:    
