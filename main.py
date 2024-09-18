@@ -34,7 +34,7 @@ async def get_user_by_email(email: str):
 
 async def get_user_db_link(email: str):
     user = await get_user_by_email(email)
-    mongodb_url = user.get("server")  # Assuming "server" holds the MongoDB URL
+    mongodb_url = str(user["server"])  # Assuming "server" holds the MongoDB URL
     if not mongodb_url:
         raise HTTPException(status_code=500, detail="MongoDB URL not found for the user")
     
