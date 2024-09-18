@@ -66,7 +66,7 @@ const SearchItem = ({ uname, email }) => {
                         <td>{item._id}</td>
                         <td>{item.name}</td>
                         <td>${item.price}</td>
-                        <td>{item.availableCount}</td>
+                        <td>{item.quantity}</td>
                       </tr>
                     ))}
                   </tbody>
