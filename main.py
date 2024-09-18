@@ -79,18 +79,19 @@ async def login(req_data: dict):
 async def add_item(req_data: dict ):
     #return {"email": req_data.get("email")}
     try:
-        inventory_collection = await get_user_db_link(str(req_data.get("email")))
-        return {"link": inventory_collection}
-        """
+        dblink = await get_user_db_link(str(req_data.get("email")))
+        dbLink = AsyncIOMotorClient(str(dblink))
+        shop=dblink["shop_db"]
+        inventory = shop["inventory"]
+        print("server connected")
         new_item = {
             "name": req_data.get("item_name"),
             "quantity": req_data.get("quantity"),
             "category": req_data.get("category"),
             "description": req_data.get("description")
         }
-        result = await inventory_collection.insert_one(new_item)
+        result = await inventory.insert_one(new_item)
         return {"message": "Item added successfully", "item_id": str(result.inserted_id)}
-        """
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     
