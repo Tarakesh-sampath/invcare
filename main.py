@@ -103,3 +103,22 @@ async def getdb(req_data: dict):
     except Exception as e:
         print(f"Error: {str(e)}")  # Print error to the server log
         raise HTTPException(status_code=500, detail=str(e))
+    
+@app.post("/getdata")
+async def getdb(req_data: dict):
+    try:
+        print(str(req_data.get("email")))
+        shop = await get_user_db_link(str(req_data.get("email")))
+        inventory = shop["inventory"]
+        # Perform the search operation
+        items_cursor = inventory.find()
+        items = await items_cursor.to_list(length=100)
+
+        # Convert MongoDB ObjectId to string if needed
+        for itm in items:
+            itm['_id'] = str(itm['_id'])
+        return {"items": items}
+
+    except Exception as e:
+        print(f"Error: {str(e)}")  # Print error to the server log
+        raise HTTPException(status_code=500, detail=str(e))
