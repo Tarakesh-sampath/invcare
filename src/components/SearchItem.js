@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Header2 from '../components/Header2';
@@ -11,8 +11,33 @@ const SearchItem = ({ uname, email }) => {
   const [search, setSearchText] = useState(''); // Changed from searchId to searchText for name-based search
   const [searchResults, setSearchResults] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
+  const initial_fetch = async () => {
+    try{
+      const response = await axios.post('https://invcare-1.onrender.com/getdata',{
+        email: email
+      });
+      if (response.data.items.length > 0) {
+        setSearchResults(response.data.items);
+        setErrorMessage('');
+      }else{
+        setSearchResults([]);
+        setErrorMessage('No items in inventory');
+      }
+    }catch (error) {
+      console.error('Error fetching data:', error);
+      setErrorMessage('Error fetching data');
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await initial_fetch();
+    };
+    fetchData();
+  }, []);
 
   const handleSearch = async () => {
+    setSearchResults([]);
     try {
       const response = await axios.post('https://invcare-1.onrender.com/getdb',{
         email: email,
