@@ -9,7 +9,7 @@ const UpdateItem = ({uname,email}) => {
   email = location.state?.email || {}
   return (
     <>
-      <Header2 username={uname} />
+      <Header2 uname={uname}email={email} />
       <main>
         <div className="container">
           <h2>Update Item</h2>

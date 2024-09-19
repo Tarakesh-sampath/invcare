@@ -15,7 +15,7 @@ const Dashboard = ({uname,email}) => {
 
   return (
     <>
-      <Header2 uname={uname} />
+      <Header2 uname={uname}email={email} />
       <main>
         <div className="container">
           <h2>Inventory Dashboard</h2>

@@ -57,7 +57,7 @@ const SearchItem = ({ uname, email }) => {
   };
   return (
     <>
-      <Header2 username={uname} />
+      <Header2 username={uname}email={email} />
       <main>
         <div className="container">
           <h2>Search Inventory</h2>
