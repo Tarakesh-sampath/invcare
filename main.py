@@ -7,7 +7,7 @@ from typing import List, Dict
 from bson import ObjectId
 app = FastAPI()
 #http://127.0.0.1:8000 
-client = AsyncIOMotorClient("mongodb+srv://Backend:1234@invdb.y7d9vxz.mongodb.net/")
+client = AsyncIOMotorClient("mongodb+srv://demo:demopass@invcare-demo.wpinr.mongodb.net/")
 
 app.add_middleware(
     CORSMiddleware,
